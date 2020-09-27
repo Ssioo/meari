@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>534091699001-3gl1sii2k1lc2fokflmr78l1b1ri0j4u.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.534091699001-3gl1sii2k1lc2fokflmr78l1b1ri0j4u</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>534091699001-ca8b36f5jnlc4u39k68m0u8h2mq6nhmb.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB-BeuD9v-zcV760McVTh1ssu5ntX-zBKk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>534091699001</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.whoissio.meari</string>
+	<key>PROJECT_ID</key>
+	<string>skku2020-1-capstone</string>
+	<key>STORAGE_BUCKET</key>
+	<string>skku2020-1-capstone.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:534091699001:ios:ed0374f27e478be6810ee8</string>
+	<key>DATABASE_URL</key>
+	<string>https://skku2020-1-capstone.firebaseio.com</string>
+</dict>
+</plist>
