@@ -1,5 +1,10 @@
 export interface Sound {
   id: number
-  song: string
+  sound: string
   name: string
+}
+
+export interface ColorSound {
+  color: string
+  sound: string
 }

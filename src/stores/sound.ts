@@ -1,11 +1,25 @@
 import { action, computed, observable } from 'mobx'
 import { alert } from 'infra/utils'
 import { soundApi } from 'networks/sound'
-import { Sound } from 'models/sound'
-import PlaySound from 'react-native-sound'
+import { ColorSound, Sound } from 'models/sound'
+import { Player } from '@react-native-community/audio-toolkit'
 
 class SoundStore {
   @observable sounds: Sound[] = []
+  @observable colorSounds: ColorSound[] = []
+
+  @computed get playableSounds(): Map<string, Player> {
+    const result = new Map<string, Player>()
+    this.sounds.forEach((value) => {
+      result.set(
+        value.name,
+        new Player(value.sound, {
+          mixWithOthers: true,
+        }).prepare((e) => console.log('Prepare ', value.name, e ?? 'Success')),
+      )
+    })
+    return result
+  }
 
   @action
   async fetchSounds() {
@@ -16,18 +30,13 @@ class SoundStore {
     }
   }
 
-  @computed get playableSounds(): Map<string, PlaySound> {
-    const result = new Map<string, PlaySound>()
-    //PlaySound.setCategory('Playback')
-    this.sounds.forEach((value) => {
-      result.set(
-        value.name,
-        new PlaySound(value.song, (error) => {
-          console.log(error)
-        }),
-      )
-    })
-    return result
+  @action
+  async fetchColorSounds() {
+    try {
+      this.colorSounds = await soundApi.getColorSounds()
+    } catch (e) {
+      alert(e.message)
+    }
   }
 }
 

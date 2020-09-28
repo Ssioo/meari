@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { masterpieceStore } from 'stores/masterpiece'
 import { COLOR } from 'infra/color'
-import PlaySound from 'react-native-sound'
 import { soundStore } from 'stores/sound'
 import { Sound } from 'models/sound'
 import GetPixelColor from 'react-native-get-pixel-color'
@@ -15,7 +14,7 @@ export const MasterpieceScreen = () => {
       .then(() => {
         console.log('success')
       })
-      .catch((e) => {
+      .catch((e: any) => {
         console.log(e)
       })
     const interval = setInterval(() => {
@@ -111,7 +110,9 @@ const CurrentColorInfo = observer(() => (
 ))
 
 const ColorSoundHelper = () => (
-  <View style={{ marginVertical: 10, flexDirection: 'row', alignSelf: 'center' }}>
+  <View
+    style={{ marginVertical: 10, flexDirection: 'row', alignSelf: 'center' }}
+  >
     <ColorItem
       color='#FF0000'
       name='도'
@@ -147,10 +148,10 @@ const ColorItem: React.FC<{ color: string; name: string; sound?: Sound }> = ({
 }) => (
   <TouchableOpacity
     onPress={() => {
-      console.log(sound)
       if (!sound) return
-      const soundPlayer = soundStore.playableSounds.get(sound.name)
-      console.log(soundPlayer?.isLoaded())
+      soundStore.playableSounds
+        .get(sound.name)!!
+        .play((e) => console.log('Play on:', sound.name, e ?? 'Success'))
     }}
     style={{ alignItems: 'center', marginHorizontal: 10 }}
   >
