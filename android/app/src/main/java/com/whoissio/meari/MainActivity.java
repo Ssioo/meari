@@ -1,4 +1,4 @@
-package com.meari;
+package com.whoissio.meari;
 
 import com.facebook.react.ReactActivity;
 
