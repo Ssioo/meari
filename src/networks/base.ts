@@ -6,9 +6,8 @@ export const setToken = (t: string | null) => {
 }
 
 export interface NetworkMessage {
-  status: number
+  code: number
   data?: any
-  arr?: any
   msg?: string
 }
 

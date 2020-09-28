@@ -3,16 +3,20 @@ import { StatusBar } from 'react-native'
 import * as eva from '@eva-design/eva'
 import { NavigationContainer } from '@react-navigation/native'
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
-import { _navigationRef } from 'infra/navigation'
+import { _navigationRef, setIsNavigationReady } from 'infra/navigation'
 import { HomeStack } from 'navigators/root-stack'
 import { mapping, theme } from 'infra/theme'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import SplashScreen from 'react-native-splash-screen'
+import { Alert } from 'components/alert'
 
 const App = () => {
   useEffect(() => {
+    setIsNavigationReady(true)
     SplashScreen.hide()
-    return () => {}
+    return () => {
+      setIsNavigationReady(false)
+    }
   }, [])
   return (
     <>
@@ -28,6 +32,7 @@ const App = () => {
           <HomeStack />
         </NavigationContainer>
       </ApplicationProvider>
+      <Alert />
     </>
   )
 }
