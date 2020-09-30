@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "react-native run-android --appId=com.whoissio.meari.debug",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -23,6 +23,9 @@
     "@react-navigation/stack": "5.6.2",
     "@ui-kitten/components": "5.0.0",
     "@ui-kitten/eva-icons": "5.0.0",
+    "appcenter": "^3.1.2",
+    "appcenter-analytics": "^3.1.2",
+    "appcenter-crashes": "^3.1.2",
     "babel-eslint": "^10.1.0",
     "code-push": "^3.1.5",
     "code-push-cli": "^2.1.9",

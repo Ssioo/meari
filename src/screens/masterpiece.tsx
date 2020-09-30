@@ -126,17 +126,17 @@ const ColorSoundHelper = () => (
     <ColorItem
       color='#0000FF'
       name='미'
-      sound={soundStore.sounds.find((item) => item.name === 'D1')}
+      sound={soundStore.sounds.find((item) => item.name === 'E1')}
     />
     <ColorItem
       color='#FF00FF'
       name='파'
-      sound={soundStore.sounds.find((item) => item.name === 'D1')}
+      sound={soundStore.sounds.find((item) => item.name === 'F1')}
     />
     <ColorItem
       color='#00FF00'
       name='솔'
-      sound={soundStore.sounds.find((item) => item.name === 'D1')}
+      sound={soundStore.sounds.find((item) => item.name === 'G1')}
     />
   </View>
 )
@@ -149,9 +149,17 @@ const ColorItem: React.FC<{ color: string; name: string; sound?: Sound }> = ({
   <TouchableOpacity
     onPress={() => {
       if (!sound) return
-      soundStore.playableSounds
-        .get(sound.name)!!
-        .play((e) => console.log('Play on:', sound.name, e ?? 'Success'))
+      const player = soundStore.playableSounds.get(sound.name)
+      if (!player) return
+      if (player.isPlaying) {
+        player.seek(0, (e) =>
+          console.log('Restart on: ', sound.name, e ?? 'Success'),
+        )
+      } else {
+        player.play((e) => {
+          console.log('Play on:', sound.name, e ?? 'Success')
+        })
+      }
     }}
     style={{ alignItems: 'center', marginHorizontal: 10 }}
   >

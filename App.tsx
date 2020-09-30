@@ -9,8 +9,9 @@ import { mapping, theme } from 'infra/theme'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import SplashScreen from 'react-native-splash-screen'
 import { Alert } from 'components/alert'
+import {COLOR} from 'infra/color'
 
-const App = () => {
+export const App = () => {
   useEffect(() => {
     setIsNavigationReady(true)
     SplashScreen.hide()
@@ -20,7 +21,7 @@ const App = () => {
   }, [])
   return (
     <>
-      <StatusBar barStyle='dark-content' />
+      <StatusBar barStyle='light-content' backgroundColor={COLOR.dark} />
       <IconRegistry icons={[EvaIconsPack]} />
       <ApplicationProvider
         {...eva}
@@ -36,5 +37,3 @@ const App = () => {
     </>
   )
 }
-
-export default App

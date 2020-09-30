@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeArea } from 'components/layout'
 import { masterpieceStore } from 'stores/masterpiece'
@@ -9,12 +9,14 @@ import { WINDOW_HEIGHT } from 'infra/constants'
 import { navigation } from 'infra/navigation'
 import { soundStore } from 'stores/sound'
 import Swiper from 'react-native-swiper'
-import { ViewPager } from '@ui-kitten/components'
 
 export const HomeScreen = () => {
   useEffect(() => {
     masterpieceStore.fetchMasterpieces()
     soundStore.fetchSounds()
+      return () => {
+        soundStore.destroyPlayers()
+      }
   }, [])
   return (
     <SafeArea>
