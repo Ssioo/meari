@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "codepush-a": "appcenter codepush release-react -a yeonwoo_sio/Meari-android -d Production",
     "codepush-i": "appcenter codepush release-react -a yeonwoo_sio/Meari-ios -d Production",
-    "assemble-a": "android/gradlew -p android/app assembleRelease && cp cp android/app/build/outputs/apk/release/app-release.apk $HOME/Downloads/$(date '+%y%m%d_%H%M%S').apk"
+    "assemble-a": "android/gradlew -p android/app assembleRelease && cp android/app/build/outputs/apk/release/app-release.apk $HOME/Downloads/$(date '+%y%m%d_%H%M%S').apk"
   },
   "dependencies": {
     "@eva-design/eva": "2.0.0",
