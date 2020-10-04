@@ -41,6 +41,7 @@
     "react-i18next": "11.7.0",
     "react-native": "0.63.2",
     "react-native-code-push": "6.2.1",
+    "react-native-fs": "^2.16.6",
     "react-native-gesture-handler": "1.7.0",
     "react-native-get-pixel-color": "^1.1.0-alpha.23",
     "react-native-raw-bottom-sheet": "2.2.0",

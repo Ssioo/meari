@@ -5,6 +5,6 @@ export interface Sound {
 }
 
 export interface ColorSound {
-  color: string
+  hex: string
   sound: string
 }

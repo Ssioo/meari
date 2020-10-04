@@ -18,13 +18,27 @@ class MasterpieceStore {
     }
   }
 
+  zipColor(hex: string): string {
+    const zippedR = Math.floor(parseInt(hex.substr(1, 2), 16) / 8) * 8
+    const zippedG = Math.floor(parseInt(hex.substr(3, 2), 16) / 8) * 8
+    const zippedB = Math.floor(parseInt(hex.substr(5, 2), 16) / 8) * 8
+    return `#${zippedR
+      .toString(16)
+      .toUpperCase()
+      .padStart(2, '0')}${zippedG
+      .toString(16)
+      .toUpperCase()
+      .padStart(2, '0')}${zippedB.toString(16).toUpperCase().padStart(2, '0')}`
+  }
+
   constructor() {
     reaction(
       () => this.selectedColor,
       (color) => {
         if (!color) return
+        const truncatedColor = this.zipColor(color)
         const foundSound = soundStore.colorSounds.find(
-          (item) => item.color === color,
+          (item) => item.hex === truncatedColor,
         )
         if (!foundSound) return
         const foundPlayer = soundStore.playableSounds.get(foundSound.sound)

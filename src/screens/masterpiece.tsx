@@ -7,21 +7,50 @@ import { soundStore } from 'stores/sound'
 import { Sound } from 'models/sound'
 import GetPixelColor from 'react-native-get-pixel-color'
 import { observer } from 'mobx-react'
+import { isAOS } from 'infra/constants'
+import { CachesDirectoryPath, downloadFile, readFile } from 'react-native-fs'
+
+const base64StringFromImgUrl = async (url: string) => {
+  await downloadFile({
+    fromUrl: url,
+    toFile: `${CachesDirectoryPath}/img.png`,
+  }).promise
+  return readFile(`${CachesDirectoryPath}/img.png`, 'base64')
+}
 
 export const MasterpieceScreen = () => {
   useEffect(() => {
-    GetPixelColor.setImage(masterpieceStore.selectedPiece?.img!!)
-      .then(() => {
-        console.log('success')
-      })
-      .catch((e: any) => {
-        console.log(e)
-      })
+    if (!masterpieceStore.selectedPiece?.img) return
+    if (isAOS) {
+      base64StringFromImgUrl(masterpieceStore.selectedPiece.img)
+        .then((res) => {
+          GetPixelColor.setImage(res)
+            .then(() => {
+              console.log('success')
+            })
+            .catch((e: any) => {
+              console.log(e)
+            })
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    } else {
+      GetPixelColor.setImage(masterpieceStore.selectedPiece.img)
+        .then(() => {
+          console.log('success')
+        })
+        .catch((e: any) => {
+          console.log(e)
+        })
+    }
+
     const interval = setInterval(() => {
       setPickThrottle(true)
     }, 500)
     return () => {
       masterpieceStore.selectedPiece = null
+      masterpieceStore.selectedColor = null
       clearInterval(interval)
     }
   }, [])
@@ -42,10 +71,10 @@ export const MasterpieceScreen = () => {
       <CurrentColorInfo />
       <View
         style={{ flex: 1, borderColor: COLOR.dark, borderWidth: 0.5 }}
-        onTouchStart={async (e) => {
+        onTouchStart={async ({ nativeEvent }) => {
           masterpieceStore.selectedColor = await GetPixelColor.pickColorAt(
-            e.nativeEvent.locationX,
-            e.nativeEvent.locationY,
+            nativeEvent.locationX,
+            nativeEvent.locationY,
           )
         }}
         onTouchMove={async ({ nativeEvent }) => {
@@ -114,22 +143,22 @@ const ColorSoundHelper = () => (
     style={{ marginVertical: 10, flexDirection: 'row', alignSelf: 'center' }}
   >
     <ColorItem
-      color='#FF0000'
+      color='#000000'
       name='도'
       sound={soundStore.sounds.find((item) => item.name === 'C1')}
     />
     <ColorItem
-      color='#FFFF00'
+      color='#FF0000'
       name='레'
       sound={soundStore.sounds.find((item) => item.name === 'D1')}
     />
     <ColorItem
-      color='#0000FF'
+      color='#FF8000'
       name='미'
       sound={soundStore.sounds.find((item) => item.name === 'E1')}
     />
     <ColorItem
-      color='#FF00FF'
+      color='#FFFF00'
       name='파'
       sound={soundStore.sounds.find((item) => item.name === 'F1')}
     />
@@ -137,6 +166,16 @@ const ColorSoundHelper = () => (
       color='#00FF00'
       name='솔'
       sound={soundStore.sounds.find((item) => item.name === 'G1')}
+    />
+    <ColorItem
+      color='#0000FF'
+      name='라'
+      sound={soundStore.sounds.find((item) => item.name === 'A1')}
+    />
+    <ColorItem
+      color='#8B00FF'
+      name='시'
+      sound={soundStore.sounds.find((item) => item.name === 'B1')}
     />
   </View>
 )
@@ -161,12 +200,12 @@ const ColorItem: React.FC<{ color: string; name: string; sound?: Sound }> = ({
         })
       }
     }}
-    style={{ alignItems: 'center', marginHorizontal: 10 }}
+    style={{ alignItems: 'center', marginHorizontal: 5 }}
   >
     <View
       style={{
-        width: 48,
-        height: 48,
+        width: 40,
+        height: 40,
         borderRadius: 100,
         backgroundColor: color,
         borderColor: COLOR.white,

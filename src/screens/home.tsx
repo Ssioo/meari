@@ -14,9 +14,10 @@ export const HomeScreen = () => {
   useEffect(() => {
     masterpieceStore.fetchMasterpieces()
     soundStore.fetchSounds()
-      return () => {
-        soundStore.destroyPlayers()
-      }
+    soundStore.fetchColorSounds()
+    return () => {
+      soundStore.destroyPlayers()
+    }
   }, [])
   return (
     <SafeArea>
